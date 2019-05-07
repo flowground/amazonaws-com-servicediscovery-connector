@@ -1,0 +1,69 @@
+{
+    "type": "object",
+    "properties": {
+        "Action": {
+            "required": true,
+            "type": "string"
+        },
+        "Version": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "properties": {
+                "InstanceId": {
+                    "description": "The ID of the instance that you want to change the health status for.",
+                    "maxLength": 64,
+                    "type": "string"
+                },
+                "ServiceId": {
+                    "description": "The ID of the service that includes the configuration for the custom health check that you want to change the status for.",
+                    "maxLength": 64,
+                    "type": "string"
+                },
+                "Status": {
+                    "description": "The new status of the instance, <code>HEALTHY</code> or <code>UNHEALTHY</code>.",
+                    "enum": [
+                        "HEALTHY",
+                        "UNHEALTHY"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "ServiceId",
+                "InstanceId",
+                "Status"
+            ],
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}

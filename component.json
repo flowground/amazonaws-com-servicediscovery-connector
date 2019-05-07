@@ -1,0 +1,380 @@
+{
+    "title": "AWS Cloud Map",
+    "description": "AWS Cloud Map lets you configure public DNS, private DNS, or HTTP namespaces that your microservice applications run in. When an instance of the service becomes available, you can call the AWS Cloud Map API to register the instance with AWS Cloud Map. For public or private DNS namespaces, AWS Cloud Map automatically creates DNS records and an optional health check. Clients that submit public or private DNS queries, or HTTP requests, for the service receive an answer that contains up to eight healthy records. ",
+    "docsUrl": "https://docs.aws.amazon.com/servicediscovery/",
+    "url": "https://api.apis.guru/v2/specs/amazonaws.com/servicediscovery/2017-03-14/swagger.json",
+    "envVars": {},
+    "credentials": {
+        "fields": {
+            "server": {
+                "label": "Server",
+                "viewClass": "SelectView",
+                "model": [
+                    "https://servicediscovery.amazonaws.com/",
+                    "http://servicediscovery.amazonaws.com/",
+                    "--- Custom URL"
+                ],
+                "required": true
+            },
+            "otherServer": {
+                "label": "Custom Server URL",
+                "viewClass": "TextFieldView"
+            },
+            "hmac": {
+                "label": "Authorization (hmac)",
+                "viewClass": "TextFieldView",
+                "note": "Amazon Signature authorization v4"
+            }
+        }
+    },
+    "triggers": {
+        "startFlow": {
+            "main": "./lib/triggers/startFlow.js",
+            "type": "polling",
+            "title": "Start Flow",
+            "fields": {}
+        }
+    },
+    "actions": {
+        "CreateHttpNamespace": {
+            "main": "./lib/actions/CreateHttpNamespace.js",
+            "title": "<p>Creates an HTTP namespace. Service instances that you register using an HTTP namespace can be discovered using a <code>DiscoverInstances</code> request but can't be discovered using DNS. </p> <p>For the current limit on the number of namespaces that you can create using the same AWS account, see <a href=\"http://docs.aws.amazon.com/cloud-map/latest/dg/cloud-map-limits.html\">AWS Cloud Map Limits</a> in the <i>AWS Cloud Map Developer Guide</i>.</p>",
+            "description": "<p>Creates an HTTP namespace. Service instances that you register using an HTTP namespace can be discovered using a <code>DiscoverInstances</code> request but can't be discovered using DNS. </p> <p>For the current limit on the number of namespaces that you can create using the same AWS account, see <a href=\"http://docs.aws.amazon.com/cloud-map/latest/dg/cloud-map-limits.html\">AWS Cloud Map Limits</a> in the <i>AWS Cloud Map Developer Guide</i>.</p>",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/CreateHttpNamespace.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "CreatePrivateDnsNamespace": {
+            "main": "./lib/actions/CreatePrivateDnsNamespace.js",
+            "title": "Creates a private namespace based on DNS, which will be visible only inside a specified Amazon VPC. The namespace defines your service naming scheme. For example, if you name your namespace <code>example.com</code> and name your service <code>backend</code>, the resulting DNS name for the service will be <code>backend.example.com</code>. For the current limit on the number of namespaces that you can create using the same AWS account, see <a href=\"http://docs.aws.amazon.com/cloud-map/latest/dg/cloud-map-limits.html\">AWS Cloud Map Limits</a> in the <i>AWS Cloud Map Developer Guide</i>.",
+            "description": "Creates a private namespace based on DNS, which will be visible only inside a specified Amazon VPC. The namespace defines your service naming scheme. For example, if you name your namespace <code>example.com</code> and name your service <code>backend</code>, the resulting DNS name for the service will be <code>backend.example.com</code>. For the current limit on the number of namespaces that you can create using the same AWS account, see <a href=\"http://docs.aws.amazon.com/cloud-map/latest/dg/cloud-map-limits.html\">AWS Cloud Map Limits</a> in the <i>AWS Cloud Map Developer Guide</i>.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/CreatePrivateDnsNamespace.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "CreatePublicDnsNamespace": {
+            "main": "./lib/actions/CreatePublicDnsNamespace.js",
+            "title": "Creates a public namespace based on DNS, which will be visible on the internet. The namespace defines your service naming scheme. For example, if you name your namespace <code>example.com</code> and name your service <code>backend</code>, the resulting DNS name for the service will be <code>backend.example.com</code>. For the current limit on the number of namespaces that you can create using the same AWS account, see <a href=\"http://docs.aws.amazon.com/cloud-map/latest/dg/cloud-map-limits.html\">AWS Cloud Map Limits</a> in the <i>AWS Cloud Map Developer Guide</i>.",
+            "description": "Creates a public namespace based on DNS, which will be visible on the internet. The namespace defines your service naming scheme. For example, if you name your namespace <code>example.com</code> and name your service <code>backend</code>, the resulting DNS name for the service will be <code>backend.example.com</code>. For the current limit on the number of namespaces that you can create using the same AWS account, see <a href=\"http://docs.aws.amazon.com/cloud-map/latest/dg/cloud-map-limits.html\">AWS Cloud Map Limits</a> in the <i>AWS Cloud Map Developer Guide</i>.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/CreatePublicDnsNamespace.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "CreateService": {
+            "main": "./lib/actions/CreateService.js",
+            "title": "<p>Creates a service, which defines the configuration for the following entities:</p> <ul> <li> <p>For public and private DNS namespaces, one of the following combinations of DNS records in Amazon Route 53:</p> <ul> <li> <p>A</p> </li> <li> <p>AAAA</p> </li> <li> <p>A and AAAA</p> </li> <li> <p>SRV</p> </li> <li> <p>CNAME</p> </li> </ul> </li> <li> <p>Optionally, a health check</p> </li> </ul> <p>After you create the service, you can submit a <a>RegisterInstance</a> request, and AWS Cloud Map uses the values in the configuration to create the specified entities.</p> <p>For the current limit on the number of instances that you can register using the same namespace and using the same service, see <a href=\"http://docs.aws.amazon.com/cloud-map/latest/dg/cloud-map-limits.html\">AWS Cloud Map Limits</a> in the <i>AWS Cloud Map Developer Guide</i>.</p>",
+            "description": "<p>Creates a service, which defines the configuration for the following entities:</p> <ul> <li> <p>For public and private DNS namespaces, one of the following combinations of DNS records in Amazon Route 53:</p> <ul> <li> <p>A</p> </li> <li> <p>AAAA</p> </li> <li> <p>A and AAAA</p> </li> <li> <p>SRV</p> </li> <li> <p>CNAME</p> </li> </ul> </li> <li> <p>Optionally, a health check</p> </li> </ul> <p>After you create the service, you can submit a <a>RegisterInstance</a> request, and AWS Cloud Map uses the values in the configuration to create the specified entities.</p> <p>For the current limit on the number of instances that you can register using the same namespace and using the same service, see <a href=\"http://docs.aws.amazon.com/cloud-map/latest/dg/cloud-map-limits.html\">AWS Cloud Map Limits</a> in the <i>AWS Cloud Map Developer Guide</i>.</p>",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/CreateService.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "DeleteNamespace": {
+            "main": "./lib/actions/DeleteNamespace.js",
+            "title": "Deletes a namespace from the current account. If the namespace still contains one or more services, the request fails.",
+            "description": "Deletes a namespace from the current account. If the namespace still contains one or more services, the request fails.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/DeleteNamespace.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "DeleteService": {
+            "main": "./lib/actions/DeleteService.js",
+            "title": "Deletes a specified service. If the service still contains one or more registered instances, the request fails.",
+            "description": "Deletes a specified service. If the service still contains one or more registered instances, the request fails.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/DeleteService.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "DeregisterInstance": {
+            "main": "./lib/actions/DeregisterInstance.js",
+            "title": "Deletes the Amazon Route 53 DNS records and health check, if any, that AWS Cloud Map created for the specified instance.",
+            "description": "Deletes the Amazon Route 53 DNS records and health check, if any, that AWS Cloud Map created for the specified instance.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/DeregisterInstance.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "DiscoverInstances": {
+            "main": "./lib/actions/DiscoverInstances.js",
+            "title": "Discovers registered instances for a specified namespace and service.",
+            "description": "Discovers registered instances for a specified namespace and service.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/DiscoverInstances.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "GetInstance": {
+            "main": "./lib/actions/GetInstance.js",
+            "title": "Gets information about a specified instance.",
+            "description": "Gets information about a specified instance.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/GetInstance.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "GetInstancesHealthStatus": {
+            "main": "./lib/actions/GetInstancesHealthStatus.js",
+            "title": "<p>Gets the current health status (<code>Healthy</code>, <code>Unhealthy</code>, or <code>Unknown</code>) of one or more instances that are associated with a specified service.</p> <note> <p>There is a brief delay between when you register an instance and when the health status for the instance is available. </p> </note>",
+            "description": "<p>Gets the current health status (<code>Healthy</code>, <code>Unhealthy</code>, or <code>Unknown</code>) of one or more instances that are associated with a specified service.</p> <note> <p>There is a brief delay between when you register an instance and when the health status for the instance is available. </p> </note>",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/GetInstancesHealthStatus.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "GetNamespace": {
+            "main": "./lib/actions/GetNamespace.js",
+            "title": "Gets information about a namespace.",
+            "description": "Gets information about a namespace.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/GetNamespace.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "GetOperation": {
+            "main": "./lib/actions/GetOperation.js",
+            "title": "<p>Gets information about any operation that returns an operation ID in the response, such as a <code>CreateService</code> request.</p> <note> <p>To get a list of operations that match specified criteria, see <a>ListOperations</a>.</p> </note>",
+            "description": "<p>Gets information about any operation that returns an operation ID in the response, such as a <code>CreateService</code> request.</p> <note> <p>To get a list of operations that match specified criteria, see <a>ListOperations</a>.</p> </note>",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/GetOperation.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "GetService": {
+            "main": "./lib/actions/GetService.js",
+            "title": "Gets the settings for a specified service.",
+            "description": "Gets the settings for a specified service.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/GetService.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "ListInstances": {
+            "main": "./lib/actions/ListInstances.js",
+            "title": "Lists summary information about the instances that you registered by using a specified service.",
+            "description": "Lists summary information about the instances that you registered by using a specified service.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/ListInstances.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "ListNamespaces": {
+            "main": "./lib/actions/ListNamespaces.js",
+            "title": "Lists summary information about the namespaces that were created by the current AWS account.",
+            "description": "Lists summary information about the namespaces that were created by the current AWS account.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/ListNamespaces.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "ListOperations": {
+            "main": "./lib/actions/ListOperations.js",
+            "title": "Lists operations that match the criteria that you specify.",
+            "description": "Lists operations that match the criteria that you specify.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/ListOperations.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "ListServices": {
+            "main": "./lib/actions/ListServices.js",
+            "title": "Lists summary information for all the services that are associated with one or more specified namespaces.",
+            "description": "Lists summary information for all the services that are associated with one or more specified namespaces.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/ListServices.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "RegisterInstance": {
+            "main": "./lib/actions/RegisterInstance.js",
+            "title": "<p>Creates or updates one or more records and, optionally, creates a health check based on the settings in a specified service. When you submit a <code>RegisterInstance</code> request, the following occurs:</p> <ul> <li> <p>For each DNS record that you define in the service that is specified by <code>ServiceId</code>, a record is created or updated in the hosted zone that is associated with the corresponding namespace.</p> </li> <li> <p>If the service includes <code>HealthCheckConfig</code>, a health check is created based on the settings in the health check configuration.</p> </li> <li> <p>The health check, if any, is associated with each of the new or updated records.</p> </li> </ul> <important> <p>One <code>RegisterInstance</code> request must complete before you can submit another request and specify the same service ID and instance ID.</p> </important> <p>For more information, see <a>CreateService</a>.</p> <p>When AWS Cloud Map receives a DNS query for the specified DNS name, it returns the applicable value:</p> <ul> <li> <p> <b>If the health check is healthy</b>: returns all the records</p> </li> <li> <p> <b>If the health check is unhealthy</b>: returns the applicable value for the last healthy instance</p> </li> <li> <p> <b>If you didn't specify a health check configuration</b>: returns all the records</p> </li> </ul> <p>For the current limit on the number of instances that you can register using the same namespace and using the same service, see <a href=\"http://docs.aws.amazon.com/cloud-map/latest/dg/cloud-map-limits.html\">AWS Cloud Map Limits</a> in the <i>AWS Cloud Map Developer Guide</i>.</p>",
+            "description": "<p>Creates or updates one or more records and, optionally, creates a health check based on the settings in a specified service. When you submit a <code>RegisterInstance</code> request, the following occurs:</p> <ul> <li> <p>For each DNS record that you define in the service that is specified by <code>ServiceId</code>, a record is created or updated in the hosted zone that is associated with the corresponding namespace.</p> </li> <li> <p>If the service includes <code>HealthCheckConfig</code>, a health check is created based on the settings in the health check configuration.</p> </li> <li> <p>The health check, if any, is associated with each of the new or updated records.</p> </li> </ul> <important> <p>One <code>RegisterInstance</code> request must complete before you can submit another request and specify the same service ID and instance ID.</p> </important> <p>For more information, see <a>CreateService</a>.</p> <p>When AWS Cloud Map receives a DNS query for the specified DNS name, it returns the applicable value:</p> <ul> <li> <p> <b>If the health check is healthy</b>: returns all the records</p> </li> <li> <p> <b>If the health check is unhealthy</b>: returns the applicable value for the last healthy instance</p> </li> <li> <p> <b>If you didn't specify a health check configuration</b>: returns all the records</p> </li> </ul> <p>For the current limit on the number of instances that you can register using the same namespace and using the same service, see <a href=\"http://docs.aws.amazon.com/cloud-map/latest/dg/cloud-map-limits.html\">AWS Cloud Map Limits</a> in the <i>AWS Cloud Map Developer Guide</i>.</p>",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/RegisterInstance.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "UpdateInstanceCustomHealthStatus": {
+            "main": "./lib/actions/UpdateInstanceCustomHealthStatus.js",
+            "title": "<p>Submits a request to change the health status of a custom health check to healthy or unhealthy.</p> <p>You can use <code>UpdateInstanceCustomHealthStatus</code> to change the status only for custom health checks, which you define using <code>HealthCheckCustomConfig</code> when you create a service. You can't use it to change the status for Route 53 health checks, which you define using <code>HealthCheckConfig</code>.</p> <p>For more information, see <a>HealthCheckCustomConfig</a>.</p>",
+            "description": "<p>Submits a request to change the health status of a custom health check to healthy or unhealthy.</p> <p>You can use <code>UpdateInstanceCustomHealthStatus</code> to change the status only for custom health checks, which you define using <code>HealthCheckCustomConfig</code> when you create a service. You can't use it to change the status for Route 53 health checks, which you define using <code>HealthCheckConfig</code>.</p> <p>For more information, see <a>HealthCheckCustomConfig</a>.</p>",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/UpdateInstanceCustomHealthStatus.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "UpdateService": {
+            "main": "./lib/actions/UpdateService.js",
+            "title": "<p>Submits a request to perform the following operations:</p> <ul> <li> <p>Add or delete <code>DnsRecords</code> configurations</p> </li> <li> <p>Update the TTL setting for existing <code>DnsRecords</code> configurations</p> </li> <li> <p>Add, update, or delete <code>HealthCheckConfig</code> for a specified service</p> </li> </ul> <p>For public and private DNS namespaces, you must specify all <code>DnsRecords</code> configurations (and, optionally, <code>HealthCheckConfig</code>) that you want to appear in the updated service. Any current configurations that don't appear in an <code>UpdateService</code> request are deleted.</p> <p>When you update the TTL setting for a service, AWS Cloud Map also updates the corresponding settings in all the records and health checks that were created by using the specified service.</p>",
+            "description": "<p>Submits a request to perform the following operations:</p> <ul> <li> <p>Add or delete <code>DnsRecords</code> configurations</p> </li> <li> <p>Update the TTL setting for existing <code>DnsRecords</code> configurations</p> </li> <li> <p>Add, update, or delete <code>HealthCheckConfig</code> for a specified service</p> </li> </ul> <p>For public and private DNS namespaces, you must specify all <code>DnsRecords</code> configurations (and, optionally, <code>HealthCheckConfig</code>) that you want to appear in the updated service. Any current configurations that don't appear in an <code>UpdateService</code> request are deleted.</p> <p>When you update the TTL setting for a service, AWS Cloud Map also updates the corresponding settings in all the records and health checks that were created by using the specified service.</p>",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/UpdateService.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        }
+    }
+}

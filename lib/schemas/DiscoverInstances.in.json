@@ -1,0 +1,92 @@
+{
+    "type": "object",
+    "properties": {
+        "Action": {
+            "required": true,
+            "type": "string"
+        },
+        "Version": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "properties": {
+                "HealthStatus": {
+                    "description": "The health status of the instances that you want to discover.",
+                    "enum": [
+                        "HEALTHY",
+                        "UNHEALTHY",
+                        "ALL"
+                    ],
+                    "type": "string"
+                },
+                "MaxResults": {
+                    "description": "The maximum number of instances that you want Cloud Map to return in the response to a <code>DiscoverInstances</code> request. If you don't specify a value for <code>MaxResults</code>, Cloud Map returns up to 100 instances.",
+                    "maximum": 100,
+                    "minimum": 1,
+                    "type": "integer"
+                },
+                "NamespaceName": {
+                    "description": "The name of the namespace that you specified when you registered the instance.",
+                    "maxLength": 1024,
+                    "type": "string"
+                },
+                "QueryParameters": {
+                    "description": "A string map that contains attributes with values that you can use to filter instances by any custom attribute that you specified when you registered the instance. Only instances that match all the specified key/value pairs will be returned.",
+                    "items": {
+                        "properties": {
+                            "key": {
+                                "maxLength": 255,
+                                "type": "string"
+                            },
+                            "value": {
+                                "maxLength": 1024,
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "type": "array"
+                },
+                "ServiceName": {
+                    "description": "The name of the service that you specified when you registered the instance.",
+                    "pattern": "((?=^.{1,127}$)^([a-zA-Z0-9_][a-zA-Z0-9-_]{0,61}[a-zA-Z0-9_]|[a-zA-Z0-9])(\\.([a-zA-Z0-9_][a-zA-Z0-9-_]{0,61}[a-zA-Z0-9_]|[a-zA-Z0-9]))*$)|(^\\.$)",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "NamespaceName",
+                "ServiceName"
+            ],
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}
