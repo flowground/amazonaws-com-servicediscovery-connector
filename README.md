@@ -1,11 +1,11 @@
-# ![LOGO](logo.png) AWS Cloud Map MSP Connector
+# ![LOGO](logo.png) AWS Cloud Map **flow**ground Connector
 
 ## Description
 
-A generated MSP connector for the AWS Cloud Map API (version 2017-03-14).
+A generated **flow**ground connector for the AWS Cloud Map API (version 2017-03-14).
 
 Generated from: https://api.apis.guru/v2/specs/amazonaws.com/servicediscovery/2017-03-14/swagger.json<br/>
-Generated at: 2019-05-07T11:16:39+03:00
+Generated at: 2019-05-07T17:36:19+03:00
 
 ## API Description
 
@@ -279,7 +279,7 @@ Supported authorization schemes:
 
 ## License
 
-flowground :- Telekom iPaaS / amazonaws-com-servicediscovery-connector<br/>
+**flow**ground :- Telekom iPaaS / amazonaws-com-servicediscovery-connector<br/>
 Copyright © 2019, [Deutsche Telekom AG](https://www.telekom.de)<br/>
 contact: flowground@telekom.de
 
